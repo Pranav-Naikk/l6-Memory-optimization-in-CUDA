@@ -1,16 +1,21 @@
 # Experiment results evidence
 
-The executable has not yet been built on the target Windows PC because NVCC reported that the Microsoft C++ host compiler (`cl.exe`) is not available in PATH.
+**Status:** Successful execution captured on 17 November 2026 using an NVIDIA GeForce RTX 5060 Ti (compute capability 12.0).
 
-After installing the Visual Studio C++ Build Tools, compiling, and successfully running the program, save an **unedited screenshot of the actual PowerShell output** in this directory as:
+Measured output from the captured run:
 
-`execution_output.png`
+| Measurement | Result |
+|---|---:|
+| Uncoalesced transpose, N=4096 | 0.790 ms |
+| Uncoalesced effective bandwidth | 169.8 GB/s |
+| Coalesced transpose, N=4096 | 0.412 ms |
+| Coalesced effective bandwidth | 325.8 GB/s |
+| Coalesced transpose speedup | 1.92× |
+| Naive matrix multiplication, N=1024 | 1.421 ms |
+| Naive matrix multiplication throughput | 1510.8 GFLOPS |
+| Transpose verification | PASS for both kernels |
+| Matrix multiplication verification | PASS |
 
-The screenshot should include:
-- GPU model and compute capability.
-- Uncoalesced transpose time, bandwidth, and PASS/FAIL.
-- Coalesced transpose time, bandwidth, and PASS/FAIL.
-- Calculated transpose speedup.
-- Naive matrix multiplication time, GFLOPS, and PASS/FAIL.
+The original terminal capture is stored as `execution_output.png` in this directory and is embedded in the repository's root README.
 
-Only actual values printed by the executable should be entered into the README results table. Do not substitute the illustrative sample output from the lab manual.
+**Repeatability note:** This screenshot documents one captured run. The lab manual asks students to run the program at least three times and record the repeated measurements. Additional runs should be appended to the results if a repeated-run average is required.
