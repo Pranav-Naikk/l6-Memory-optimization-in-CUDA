@@ -7,7 +7,7 @@
 **Detected CUDA Toolkit:** 13.4 (NVCC 13.4.92)  
 **OS:** Windows
 
-> **Execution status:** The CUDA source file is committed. Compilation on the target Windows PC is currently blocked because Microsoft's C++ host compiler (`cl.exe`) is not available in the PowerShell PATH. No executable or measured GPU results have been produced yet. Result values and the execution screenshot are intentionally marked pending. Do not interpret the lab manual's illustrative sample output as measurements from this computer.
+> **Execution status:** Successfully compiled and executed on the NVIDIA GeForce RTX 5060 Ti. All three GPU result checks reported **PASS**. The measured values below are from the captured run on **17 November 2026**. The terminal screenshot is stored at `results/execution_output.png`.
 
 ---
 
@@ -231,21 +231,22 @@ A value greater than 1 means the coalesced transpose is faster for that run.
 
 | Kernel | N | Average time (ms) | Speedup | Bandwidth / throughput | Verification |
 |---|---:|---:|---:|---:|---|
-| Uncoalesced transpose | 4096 | Pending | 1.00× baseline | Pending GB/s | Pending |
-| Coalesced transpose | 4096 | Pending | Pending | Pending GB/s | Pending |
-| Naive matrix multiplication | 1024 | Pending | — | Pending GFLOPS | Pending |
+| Uncoalesced transpose | 4096 | **0.790** | 1.00× baseline | **169.8 GB/s** | **PASS** |
+| Coalesced transpose | 4096 | **0.412** | **1.92×** | **325.8 GB/s** | **PASS** |
+| Naive matrix multiplication | 1024 | **1.421** | — | **1510.8 GFLOPS** | **PASS** |
 
 **GPU:** NVIDIA GeForce RTX 5060 Ti  
 **Compute capability:** 12.0  
-**Actual run date:** Pending
+**Actual run date:** 17 November 2026  
+**Run count represented by screenshot:** One captured execution. The lab procedure recommends at least three runs; repeat the experiment and record additional runs if your submission requires averaged observations.
 
 ### Execution screenshot
 
-No genuine execution screenshot is available yet because the executable has not been built. After a successful run, save an unedited screenshot of the PowerShell window showing the GPU name, both transpose results, speedup, matrix-multiplication throughput, and PASS/FAIL checks as:
+The screenshot below is the terminal output captured from the successful run:
 
-`results/execution_output.png`
+![Experiment 6 execution output on NVIDIA GeForce RTX 5060 Ti](results/execution_output.png)
 
-Do not use illustrative output or manually typed values as experimental evidence.
+The captured output shows both transpose kernels and naive matrix multiplication completing with **PASS** verification. The coalesced transpose measured 1.92× the speed of the uncoalesced transpose in this run.
 
 ## 9. Analysis and discussion
 
@@ -256,7 +257,7 @@ Do not use illustrative output or manually typed values as experimental evidence
 5. **Why use CUDA events?** Kernel launches are asynchronous with respect to the host. CUDA events record elapsed time on the GPU timeline.
 6. **Why repeat launches?** Warm-up and averaging reduce the influence of initial setup and timing variation.
 
-Write the final analysis using the measured values from your own run. Performance depends on GPU architecture, driver, clocks, compiler, matrix dimensions, and system state.
+**Observed in this run:** the coalesced transpose completed in 0.412 ms compared with 0.790 ms for the uncoalesced transpose, corresponding to the reported 1.92× speedup. Effective bandwidth increased from 169.8 GB/s to 325.8 GB/s. The naive 1024 × 1024 matrix multiplication reported 1.421 ms and 1510.8 GFLOPS. All three result checks passed. Performance depends on GPU architecture, driver, clocks, compiler, matrix dimensions, and system state; repeated runs are recommended to assess timing variation.
 
 ## 10. Conclusion
 
@@ -269,7 +270,8 @@ l6-Memory-optimization-in-CUDA/
 ├── exp6.cu
 ├── README.md
 └── results/
-    └── README.md
+    ├── README.md
+    └── execution_output.png
 ```
 
 ## 12. References
